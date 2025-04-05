@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Options Order Form</title>
+</head>
+<body>
+    <h2>📥 Submit an Options Order</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+        {% for category, message in messages %}
+          <li style="color: {{ 'green' if category == 'success' else 'red' }}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/submit">
+        <label>Symbol:</label><br>
+        <input type="text" name="symbol" required><br><br>
+
+        <label>Expiration Date (YYYY-MM-DD):</label><br>
+        <input type="text" name="expiration" required><br><br>
+
+        <label>Strike Price:</label><br>
+        <input type="text" name="strike" required><br><br>
+
+        <label>Call/Put:</label><br>
+        <select name="type">
+            <option value="call">Call</option>
+            <option value="put">Put</option>
+        </select><br><br>
+
+        <label>Side:</label><br>
+        <select name="side">
+            <option value="buy">Buy</option>
+            <option value="sell">Sell</option>
+        </select><br><br>
+
+        <label>Quantity:</label><br>
+        <input type="number" name="qty" value="1" min="1"><br><br>
+
+        <label>Order Type:</label><br>
+        <select name="order_type">
+            <option value="market">Market</option>
+            <option value="limit">Limit</option>
+        </select><br><br>
+
+        <label>Limit Price (optional):</label><br>
+        <input type="text" name="limit_price"><br><br>
+
+        <label>Time in Force:</label><br>
+        <select name="tif">
+            <option value="gtc">GTC</option>
+            <option value="day">Day</option>
+            <option value="opg">OPG</option>
+            <option value="ioc">IOC</option>
+            <option value="fok">FOK</option>
+            <option value="cls">CLS</option>
+        </select><br><br>
+
+        <input type="submit" value="Submit Order">
+    </form>
+</body>
+</html>
